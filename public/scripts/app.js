@@ -20,9 +20,10 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.state = {
-            options: ['item1', 'item2', 'item3']
+            options: props.options
         };
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
+        _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
         return _this;
@@ -34,6 +35,18 @@ var IndecisionApp = function (_React$Component) {
             console.log(999999, this.state);
             this.setState({
                 options: []
+            });
+        }
+    }, {
+        key: 'handleDeleteOption',
+        value: function handleDeleteOption(option) {
+            console.log(33434, option);
+            this.setState(function (previousState) {
+                return {
+                    options: previousState.options.filter(function (x) {
+                        return x != option;
+                    })
+                };
             });
         }
     }, {
@@ -66,7 +79,8 @@ var IndecisionApp = function (_React$Component) {
                     handlePick: this.handlePick
                 }),
                 React.createElement(Options, { options: this.state.options,
-                    handleDeleteOptions: this.handleDeleteOptions
+                    handleDeleteOptions: this.handleDeleteOptions,
+                    handleDeleteOption: this.handleDeleteOption
                 }),
                 React.createElement(AddOption, { handleAddOption: this.handleAddOption })
             );
@@ -75,6 +89,10 @@ var IndecisionApp = function (_React$Component) {
 
     return IndecisionApp;
 }(React.Component);
+
+IndecisionApp.defaultProps = {
+    options: ["item1", "item2"]
+};
 
 var Header = function Header(props) {
     return React.createElement(
@@ -91,6 +109,11 @@ var Header = function Header(props) {
             props.subtitle
         )
     );
+};
+
+Header.defaultProps = {
+    title: 'default title',
+    subtitle: 'default subtitle'
 };
 
 var Action = function Action(props) {
@@ -125,6 +148,8 @@ var Options = function (_React$Component2) {
     }, {
         key: 'render',
         value: function render() {
+            var _this3 = this;
+
             console.log(444, this.props);
             var options = this.props.options;
 
@@ -137,8 +162,11 @@ var Options = function (_React$Component2) {
                     'Total ',
                     options.length
                 ),
-                options.map(function (option) {
-                    return React.createElement(Option, { key: option, option: option });
+                options.map(function (option, index) {
+                    return React.createElement(Option, { key: option + '-' + index,
+                        option: option,
+                        handleDeleteOption: _this3.props.handleDeleteOption
+                    });
                 }),
                 React.createElement(
                     'button',
@@ -156,7 +184,14 @@ var Option = function Option(props) {
     return React.createElement(
         'div',
         null,
-        props.option
+        props.option,
+        React.createElement(
+            'button',
+            { onClick: function onClick(e) {
+                    return props.handleDeleteOption(props.option);
+                } },
+            'Remove'
+        )
     );
 };
 
@@ -166,10 +201,10 @@ var AddOption = function (_React$Component3) {
     function AddOption(props) {
         _classCallCheck(this, AddOption);
 
-        var _this3 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+        var _this4 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
 
-        _this3.handleAddOption = _this3.handleAddOption.bind(_this3);
-        return _this3;
+        _this4.handleAddOption = _this4.handleAddOption.bind(_this4);
+        return _this4;
     }
 
     _createClass(AddOption, [{
@@ -209,4 +244,4 @@ var AddOption = function (_React$Component3) {
     return AddOption;
 }(React.Component);
 
-ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(IndecisionApp, { options: ['ok', 'ok2'] }), document.getElementById('app'));
