@@ -33,16 +33,18 @@ var IndecisionApp = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             console.log('IndecionsionApp - ComponentDidMount');
-
-            // LOAD DATA
-
-            // load data from localStorage    
             var json = localStorage.getItem('options');
             var options = JSON.parse(json);
 
-            this.setState({
-                options: options
-            });
+            // LOAD DATA
+            if (options) {
+                // load data from localStorage    
+
+                this.setState({
+                    options: options
+                });
+            }
+
             // LOAD DATA
         }
     }, {
