@@ -1,3 +1,8 @@
+// stateless function component
+
+
+
+
 class IndecisionApp extends React.Component {
     constructor(props) {
         super(props)
@@ -49,35 +54,23 @@ class IndecisionApp extends React.Component {
     }
 }
 
+const Header = props => (
+    <div>
+        <h1>{props.title}</h1>
+        <h1>{props.subtitle}</h1>
+    </div>
+)
 
-class Header extends React.Component {
-    render() {
-        console.log(222,this.props)
-        return (
-            <div>
-                <h1>{this.props.title}</h1>
-                <h1>{this.props.subtitle}</h1>
-            </div>
-        )
-    }
-}
 
-class Action extends React.Component {
-
-    render() {
-        console.log(333,this.props.hasOption)
-        return (
-            <div>
-                {
-                    this.props.hasOption && (
-                        <button onClick={this.props.handlePick} > What should I do?</button>
-                    )
-                }       
-            </div>
-        )
-    }
-}
-
+const Action = props => (
+        <div>
+            {
+                props.hasOption && (
+                    <button onClick={props.handlePick} > What should I do?</button>
+                )
+            }       
+        </div>
+)
 
 
 class Options extends React.Component {
@@ -107,17 +100,13 @@ class Options extends React.Component {
     }
 }
 
-class Option extends React.Component {
-    render() {
-        let option = this.props.option
-
-        return (
+const Option = props => (
             <div>
-                {option}
+                {props.option}
             </div>
         )
-    }
-}
+
+
 
 
 
@@ -151,6 +140,7 @@ class AddOption extends React.Component {
         )
     }
 }
+
 
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
