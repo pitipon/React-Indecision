@@ -15,6 +15,8 @@ class IndecisionApp extends React.Component {
         this.handleAddOption = this.handleAddOption.bind(this)
     }
 
+    
+
     handleDeleteOptions() {
         console.log(999999,this.state)
         this.setState({
