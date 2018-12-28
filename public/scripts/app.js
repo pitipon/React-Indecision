@@ -30,6 +30,40 @@ var IndecisionApp = function (_React$Component) {
     }
 
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('IndecionsionApp - ComponentDidMount');
+
+            // LOAD DATA
+
+            // load data from localStorage    
+            var json = localStorage.getItem('options');
+            var options = JSON.parse(json);
+
+            this.setState({
+                options: options
+            });
+            // LOAD DATA
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            console.log('IndecisionApp - ComponentDidUpdate');
+
+            // SAVE DATA
+            var json = JSON.stringify(this.state.options);
+
+            // save to localStorage
+            localStorage.setItem('options', json);
+            console.log('Save data:', localStorage.getItem('options'));
+            // SAVE DATA
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            console.log('IndecsionApp - ComponentWillUnmount');
+        }
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             console.log(999999, this.state);
@@ -150,7 +184,7 @@ var Options = function (_React$Component2) {
         value: function render() {
             var _this3 = this;
 
-            console.log(444, this.props);
+            // console.log(444,this.props)
             var options = this.props.options;
 
             return React.createElement(

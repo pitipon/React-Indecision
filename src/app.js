@@ -15,7 +15,38 @@ class IndecisionApp extends React.Component {
         this.handleAddOption = this.handleAddOption.bind(this)
     }
 
-    
+    componentDidMount() {
+        console.log('IndecionsionApp - ComponentDidMount')
+
+        // LOAD DATA
+
+            // load data from localStorage    
+            const json = localStorage.getItem('options')
+            const options = JSON.parse(json)
+
+            this.setState({
+                options
+            })
+        // LOAD DATA
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log('IndecisionApp - ComponentDidUpdate')
+
+        
+         // SAVE DATA
+            const json = JSON.stringify(this.state.options)
+
+            // save to localStorage
+            localStorage.setItem('options', json)
+            console.log('Save data:', localStorage.getItem('options'))
+        // SAVE DATA
+        
+    }
+
+    componentWillUnmount() {
+        console.log('IndecsionApp - ComponentWillUnmount')
+    }
 
     handleDeleteOptions() {
         console.log(999999,this.state)
@@ -105,7 +136,7 @@ class Options extends React.Component {
     }
 
     render() {
-        console.log(444,this.props)
+        // console.log(444,this.props)
         let options = this.props.options
 
         return (
